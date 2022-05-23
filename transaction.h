@@ -1,10 +1,24 @@
  #pragma once
 
-class transaction {
+//NEED TO STORE: when a transaction happens is date, account, customer, debit or credit
+
+class transaction{
 public:
 	long int time; //epoch value
-	int accountID;
+	int accountID; 
 	int customerID;
+
+	transaction() {
+		time = 0;
+		accountID = 0;
+		customerID = 0;
+	}
+	int getAccountID() {
+		return accountID;
+	}
+	void print() {
+		cout << time << endl;
+	}
 };
 
 struct CompareTime {

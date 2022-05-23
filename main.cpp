@@ -1,13 +1,38 @@
 /*
 Programmer: Allister Aniceto
 Purpose: CS260 Final Project
-Date Modified: 5/21/22
+Date Modified: 5/22/22
 Compiler: VS C++ 2019
 */
 
 /*
+UNDERSTANDING:
+-PHASE 1:
+	#transaction class that inherits from pqueue list "transaction.h"
+	#saving a list of transctions "transactionlist.h"
+
+-PHASE 2:
+	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list
+
+-customer HAS many accounts
+-account HAS 3 types of accounts 
+
+
 GOALS TO ACHIEVE:
--make priority queue
+-finish transaction.h
+	#figure out and implement "epoch" time
+
+-revise transactionlist.h
+	#load and save transactions (use load and save from customerlist.h) !DONE!
+	#revise: editRecord()
+
+-add customer, then customer list-> !DONE!
+-add account, then account list (convert to linked list)->
+-make transaction, then transaction list (convert to linked list)
+
+
+-fix calculatePenalty() in certificate deposit
+
 -delete .dat file before program ends
 */
 
@@ -121,9 +146,3 @@ int main(void) {
 	cout << "goodbye" << endl;
 	return 0;
 }
-
-//add customer, then customer list->
-//make account, then account list->
-//make transaction, then transaction list
-
-//add certificate deposit from samediffbank file

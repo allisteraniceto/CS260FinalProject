@@ -139,12 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="account.h" />
+    <ClInclude Include="accountlist.h" />
+    <ClInclude Include="certificatedeposit.h" />
     <ClInclude Include="customer.h" />
     <ClInclude Include="customerlist.h" />
+    <ClInclude Include="datetime.h" />
     <ClInclude Include="linkedlist.h" />
     <ClInclude Include="pqtime.h" />
     <ClInclude Include="pqname.h" />
     <ClInclude Include="transaction.h" />
+    <ClInclude Include="transactionlist.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

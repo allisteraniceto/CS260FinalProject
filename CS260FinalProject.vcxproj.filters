@@ -33,6 +33,21 @@
     <ClInclude Include="pqtime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="datetime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="account.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="accountlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="certificatedeposit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transactionlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
