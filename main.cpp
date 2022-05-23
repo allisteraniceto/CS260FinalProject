@@ -5,6 +5,7 @@ Date Modified: 5/22/22
 Compiler: VS C++ 2019
 */
 
+
 /*
 UNDERSTANDING:
 -PHASE 1:
@@ -34,6 +35,10 @@ GOALS TO ACHIEVE:
 -fix calculatePenalty() in certificate deposit
 
 -delete .dat file before program ends
+*/
+
+/*
+hello
 */
 
 #include <iostream>
