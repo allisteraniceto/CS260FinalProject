@@ -18,7 +18,7 @@ public:
 		node<transaction>* temp = head;
 		while (temp != 0)
 		{
-			temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
+			//temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
 			temp = temp->getNext();
 		}
 		ofs.close();
@@ -61,5 +61,17 @@ public:
 		inoutfile.seekp(4 + sizeof(transaction) * (rnum - 1), ios::beg);//add 4 bytes for header multy sizeof customer by rnum;
 		inoutfile.write((char*)(&temp), sizeof(transaction));
 		inoutfile.close();
+	}
+	//print transaction objects
+	void printcustomer() {
+		node<transaction>* temp = head;
+		transaction ctemp;
+		while (temp != 0) {
+			//first we ouput the head of 1linked list data (first node)
+			ctemp = temp->getData();
+			ctemp.printT();
+			//head=head->next();
+			temp = temp->getNext(); //temp ptr points to next ptr which points to address of the next node value
+		}
 	}
 };

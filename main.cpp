@@ -8,11 +8,19 @@ Compiler: VS C++ 2019
 /*
 UNDERSTANDING:
 -PHASE 1:
-	#transaction class that inherits from pqueue list "transaction.h"
-	#saving a list of transctions "transactionlist.h"
+	#transaction class that inherits from pqueue list "transaction.h" !DONE!
+	#saving a list of transctions "transactionlist.h" !DONE!
+	#update UML diagram
 
 -PHASE 2:
 	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list
+	#add these:
+		Add accounts
+		Add customers
+		Remove accounts
+		Remove customers
+		Print customers by last name with accounts
+		Process transactions sorted by time (epoch value, one large number)
 
 -customer HAS many accounts
 -account HAS 3 types of accounts 
@@ -20,7 +28,7 @@ UNDERSTANDING:
 
 GOALS TO ACHIEVE:
 -finish transaction.h
-	#figure out and implement "epoch" time
+	#figure out and implement "epoch" time !DONE!
 
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
@@ -40,6 +48,9 @@ GOALS TO ACHIEVE:
 #include "customerlist.h"
 #include "linkedlist.h"
 #include "pqname.h"
+#include "transaction.h"
+#include "transactionlist.h"
+#include <ctime> //time since Jan 1, 1970
 using namespace std;
 
 //menu for write or load
@@ -52,21 +63,21 @@ void menu() {
 	cout << "|3. Edit a record                                        |\n";
 	cout << "|4. Add a customer                                       |\n";
 	cout << "|5. Print customer by last name                          |\n";
+	cout << "|6. Make a transaction                                   |\n";
 	cout << "*--------------------------------------------------------*" << endl;
 }
 
 int main(void) {
 	int choice=0;
 	int custNum=0;
-	customerlist custlist;
-	//customerlist reading; // to read the data
-	//customerlist edit; //temp list to edit data
-	customer temp;
+	customerlist custlist; //customer list to store
+	transactionlist translist; //transaction list to store
+	customer temp; //temp customer object to store customer info
 	
 	menu();	//output menu
 	cout << "Enter a choice: "; //prompt user to enter a choice
 	cin >> choice;
-	while (choice >= 0 && choice <= 5) { //while loop for menu based system
+	while (choice >= 0 && choice <= 6) { //while loop for menu based system
 		switch (choice) {
 		case 0:
 			return 0;
@@ -74,19 +85,15 @@ int main(void) {
 			custNum = temp.numCustPrompt();
 			for (int i = 0; i < custNum; i++) {
 				int tempID = 0;
-				/*char tempfname[NAME_LENGTH];
-				char templname[NAME_LENGTH];*/
 
 				string tempfirst;
 				string templast;
-				cout << "Enter ID for record #" << i+1 << ": ";
+				cout << "Enter ID for record #" << i + 1 << ": ";
 				cin >> tempID;
 				cin.ignore();
 				cout << "Enter first name: ";
-				/*cin.getline(tempfname, NAME_LENGTH);*/
 				cin >> tempfirst;
 				cout << "Enter last name: ";
-				/*cin.getline(templname, NAME_LENGTH);*/
 				cin >> templast;
 				temp.setid(tempID);
 				temp.setfname(tempfirst);
@@ -100,7 +107,6 @@ int main(void) {
 			customerlist reading;
 			reading.loadFile("customer.dat");
 			//custlist.printcustomer();
-			customer temp;
 			for (int i = 0; i < reading.getcount(); i++) {
 				temp = reading.getat(i);
 				temp.printCustomerInfo();
@@ -124,6 +130,7 @@ int main(void) {
 		}
 		//Ch8 challenge
 		case 5: //print customers in last name order
+		{
 			pqname order;
 			customer one(28, "kevin", "durant");
 			customer two(24, "kobe", "bryant");
@@ -137,6 +144,28 @@ int main(void) {
 			order.sortTwo();
 			order.printcustomer();
 			break;
+		}
+		case 6: //PHASE 1: (will edit soon...)
+		{
+			time_t currenttime=0; //temp value to hold time
+			currenttime = time(NULL);
+			transaction trans1(currenttime, 39203,1);
+			system("pause"); //little puase to have different time
+			currenttime = time(NULL);
+			transaction trans2(currenttime, 23902, 2);
+			system("pause");
+			currenttime = time(NULL);
+			transaction trans3(currenttime, 339203, 3);
+			
+			translist.push(trans1);
+			translist.push(trans2);
+			translist.push(trans3);
+
+			translist.sort();
+
+			translist.printcustomer();
+			break;
+		}
 		}
 		menu();
 		cout << "Enter a choice: ";

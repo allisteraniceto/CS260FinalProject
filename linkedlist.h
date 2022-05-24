@@ -56,7 +56,9 @@ public:
 		for (int i = 0; i < count; i++)
 			this->removefront();
 	}
-	
+	node<T>* getHead() {
+		return head;
+	}
 	//adds a node to the front of the linked list
 	void addfront(T data) {
 		//node* ntemp is on the stack, so it get destroyed (just a reference)
