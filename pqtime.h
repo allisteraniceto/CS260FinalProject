@@ -3,6 +3,7 @@
 #include "transaction.h";
 
 class pqtime : public linkedlist<transaction>{
+public:
     void push(transaction item)
     {
         this->addrear(item);
@@ -21,7 +22,7 @@ class pqtime : public linkedlist<transaction>{
         transaction ttemp;
         for (int i = 0; i < this->getcount(); i++) {
             for (int j = 0; j < this->getcount() - 1; j++) {
-                if (this->getat(j).time < this->getat(j + 1).time) {
+                if (this->getat(j).time > this->getat(j + 1).time) { //changed < to > so: earliest time to latest time
                     ttemp = getat(j);
                     this->setdataAt(j, this->getat(j + 1));
                     this->setdataAt(j + 1, ttemp);

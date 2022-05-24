@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 
 //NEED TO STORE: when a transaction happens is date, account, customer, debit or credit
 
@@ -13,12 +13,19 @@ public:
 		accountID = 0;
 		customerID = 0;
 	}
+	transaction(long int time, int accountID, int customerID) {
+		this->time = time;
+		this->accountID = accountID;
+		this->customerID = customerID;
+	}
 	int getAccountID() {
 		return accountID;
 	}
-	void print() {
-		cout << time << endl;
+	void printT() {
+		cout << "account ID: " << accountID << endl;
+		cout << "time: " <<  time << endl;
 	}
+
 };
 
 struct CompareTime {
