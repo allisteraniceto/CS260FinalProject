@@ -145,7 +145,7 @@ int main(void) {
 			order.printcustomer();
 			break;
 		}
-		case 6: //PHASE 1: (will edit soon...)
+		case 6: //PHASE 1: (will edit again...)
 		{
 			time_t currenttime=0; //temp value to hold time
 			currenttime = time(NULL);
