@@ -55,6 +55,7 @@ GOALS TO ACHIEVE:
 #include <ctime> //time since Jan 1, 1970
 using namespace std;
 
+//hello
 //menu for write or load
 void menu() {
 	cout << endl;
