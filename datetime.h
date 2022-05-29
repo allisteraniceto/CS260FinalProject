@@ -40,6 +40,24 @@ public:
 		this->second = second;
 	}
 
+	void set() {
+		int month;
+		int day;
+		int year;
+		int hour;
+		int minute;
+		int second;
+
+		cout << "Month: ";
+		cout << "Day: ";
+		cout << "Year:";
+		cout << "Hour: ";
+		cout << "Minute: ";
+		cout << "Second: ";
+
+
+	}
+
 	int getyear()
 	{
 		return year;
