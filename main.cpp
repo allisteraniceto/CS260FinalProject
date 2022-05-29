@@ -14,6 +14,7 @@ UNDERSTANDING:
 
 -PHASE 2:
 	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list !DONE!
+
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
@@ -37,6 +38,10 @@ GOALS TO ACHIEVE:
 
 -revise linkedlist.h:
 	#add removeAt
+=======
+-add customer, then customer list-> !DONE!
+-add account, then account list (convert to linked list)-> !DONE!
+-make transaction, then transaction list (convert to linked list) !DONE!
 
 -add:
 	#removeAccount to accountlist
