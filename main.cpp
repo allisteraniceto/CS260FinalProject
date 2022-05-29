@@ -34,7 +34,13 @@ GOALS TO ACHIEVE:
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
+
+-revise linkedlist.h:
 	#add removeAt
+
+-add:
+	#removeAccount to accountlist
+	#removeCustomer to customerlist
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
