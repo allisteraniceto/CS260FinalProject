@@ -13,7 +13,8 @@ UNDERSTANDING:
 	#update UML diagram !DONE!
 
 -PHASE 2:
-	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list
+	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list !DONE!
+
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
@@ -35,13 +36,18 @@ GOALS TO ACHIEVE:
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
 
+-revise linkedlist.h:
+	#add removeAt
+=======
 -add customer, then customer list-> !DONE!
 -add account, then account list (convert to linked list)-> !DONE!
 -make transaction, then transaction list (convert to linked list) !DONE!
 
+-add:
+	#removeAccount to accountlist
+	#removeCustomer to customerlist
 
 -fix calculatePenalty() in certificate deposit
-
 -delete .dat file before program ends
 */
 
