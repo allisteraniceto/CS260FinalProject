@@ -167,6 +167,9 @@ public:
 			}
 		}
 	}
+	void removeAt() {
+
+	}
 	T getat(int index) {
 		if (head == 0)
 			return T(); //dummy return value
