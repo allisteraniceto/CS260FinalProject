@@ -94,7 +94,7 @@ public:
 
 		this->loadFile(filename); //load file onto the list
 		this->addrear(temp); //add new record onto the list
-		this->writefile(filename); //write the file to the name
+		this->writefile(filename); //write the file to the filename
 	
 		delete[] fname, lname; //free the memory
 	}

@@ -1,5 +1,5 @@
 #include "datetime.h"
-#include <time.h>
+#include <time.h> //used to get struct "time_t" to get month, day, year, hour, min, seconds
 #include <iostream>
 #include <fstream>
 
@@ -14,10 +14,11 @@ private:
 	datetime activedate;
 
 public:
-	virtual long double CalculateInterest(long double balance) = 0;
-	virtual long double CalculatePenalty(long double balance) = 0;
-	virtual void save(ofstream &out) = 0;
-	virtual void load(ifstream &in) = 0;
+	//"instead of using virtual function, have save and load inside accountlist"
+	//virtual long double CalculateInterest(long double balance) = 0;
+	//virtual long double CalculatePenalty(long double balance) = 0;
+	//virtual void save(ofstream &out) = 0;
+	//virtual void load(ifstream &in) = 0;
 
 	const double INT_CHECKING = 0.02;
 	const double INT_SAVINGS = 0.10;
@@ -28,22 +29,22 @@ public:
 
 	account()
 	{
-		//time_t t = time(0);
-		//struct tm * now = localtime_s(&t);
+		time_t t = time(0);
+		struct tm * now = localtime_s(&t);
 		accountid = 0;
 		balance = 0.00;
 		accounttype = 0;
-		//activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
+		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
 	}
 
 	account(int accountid,long double balance,int accounttype)
 	{
-	//	time_t t = time(0);
-	//	struct tm * now = localtime(&t);
+		time_t t = time(0);
+		struct tm * now = localtime(&t);
 		this->accountid = accountid;
 		this->balance = balance;
 		this->accounttype = accounttype;
-	//	activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
+		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
 	}
 
 	int gettype()

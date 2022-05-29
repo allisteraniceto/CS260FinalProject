@@ -1,7 +1,7 @@
 /*
 Programmer: Allister Aniceto
 Purpose: CS260 Final Project
-Date Modified: 5/22/22
+Date Modified: 5/24/22
 Compiler: VS C++ 2019
 */
 
@@ -10,17 +10,18 @@ UNDERSTANDING:
 -PHASE 1:
 	#transaction class that inherits from pqueue list "transaction.h" !DONE!
 	#saving a list of transctions "transactionlist.h" !DONE!
-	#update UML diagram
+	#update UML diagram !DONE!
 
 -PHASE 2:
 	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list
 	#add these:
-		Add accounts
-		Add customers
+		Add accounts !DONE!
+		Add customers !DONE!
 		Remove accounts
 		Remove customers
-		Print customers by last name with accounts
+		Print customers by last name with accounts 
 		Process transactions sorted by time (epoch value, one large number)
+	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
 
 -customer HAS many accounts
 -account HAS 3 types of accounts 
@@ -35,8 +36,8 @@ GOALS TO ACHIEVE:
 	#revise: editRecord()
 
 -add customer, then customer list-> !DONE!
--add account, then account list (convert to linked list)->
--make transaction, then transaction list (convert to linked list)
+-add account, then account list (convert to linked list)-> !DONE!
+-make transaction, then transaction list (convert to linked list) !DONE!
 
 
 -fix calculatePenalty() in certificate deposit
