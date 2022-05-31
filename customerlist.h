@@ -98,6 +98,19 @@ public:
 	
 		delete[] fname, lname; //free the memory
 	}
+	void removecustomer(string filename) {
+
+		int rnum = 0;
+		cout << "enter record to delete:";//prompt user to enter specific customer to delete
+		cin >> rnum;
+
+		this->loadFile(filename); //load file onto the list;
+		this->removeAt(rnum-1); //remove specific record (*index=rnum-1)
+		this->writefile(filename); //write the file to the filename PROBLEM HERE
+
+		//could show all customers in w/ record# in the beginning 
+		//then ask user to enter record# to delete specific customer
+	}
 
 	//print customer objects
 	void printcustomer() {

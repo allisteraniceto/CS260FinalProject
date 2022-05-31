@@ -30,8 +30,9 @@ public:
 
 	account()
 	{
-		time_t t = time(0);
-		struct tm * now = localtime_s(&t);
+		time_t ti = time(0);
+		time_t* t = &ti;
+		struct tm* now = localtime(t); //localtime() function need a pointer as a parameter
 		accountid = 0;
 		balance = 0.00;
 		accounttype = 0;
@@ -40,8 +41,9 @@ public:
 
 	account(int accountid,long double balance,int accounttype)
 	{
-		time_t t = time(0);
-		struct tm * now = localtime(&t);
+		time_t ti = time(0);
+		time_t* t = &ti;
+		struct tm * now = localtime(t);
 		this->accountid = accountid;
 		this->balance = balance;
 		this->accounttype = accounttype;

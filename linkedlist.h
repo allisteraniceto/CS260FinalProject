@@ -131,7 +131,8 @@ public:
 			node<T>* temp = tail;
 			tail = tail->getPrev(); //making tail ptr point to previous node
 			//tail=tail->prev
-			tail->getNext()->setNext(0); //sets next ptr to point to 0 (to nowwhere)
+			tail->setNext(0); //sets next ptr to point to 0 (to nowwhere)
+			//tail->setPrev(tail->getPrev());
 			//tail->next=next
 			delete temp; //deletes the address of the node (deleting the node)
 			count--;
@@ -169,7 +170,7 @@ public:
 	}
 	void removeAt(int index) {
 		if (head == 0) {
-			return 0;
+			return;
 		}
 		else {
 			if (index < 1) {
@@ -181,12 +182,12 @@ public:
 			else {
 				node<T>* temp = head;
 
-				for (int i = 0; i < index - 1; i++)
-					temp = temp->getNext();
+				for (int i = 0; i < index-1; i++)
+					temp = temp->getNext(); //points to the prev node that gets deleted
 
-				node<T>* todelete = temp->getNext();
-				temp->setNext(todelete->getNext());
-				todelete->getNext()->setPrev(temp);
+				node<T>* todelete = temp->getNext(); //todelete points to the node we want to delete
+				temp->setNext(todelete->getNext()); //sets temp to point to the node after the deleted one
+				todelete->getNext()->setPrev(temp); //SOMETHING WRONG HERE!!
 				delete todelete;
 				count--;
 			}

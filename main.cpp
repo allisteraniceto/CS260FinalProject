@@ -17,8 +17,8 @@ UNDERSTANDING:
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
-		Remove accounts
-		Remove customers
+		Remove accounts (removeAccount func inside accountList) 
+		Remove customers (removeCustomer func inside customerList) !DONE!
 		Print customers by last name with accounts 
 		Process transactions sorted by time (epoch value, one large number) !DONE!
 	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
@@ -35,16 +35,21 @@ GOALS TO ACHIEVE:
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
 
--revise linkedlist.h:
+-revise linkedlist.h: !DONE!
 	#add removeAt
 
 -add:
-	#removeAccount to accountlist
-	#removeCustomer to customerlist
+	#removeAccount to accountlist 
+	#removeCustomer to customerlist !DONE!
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
 -implement .dat files into main
+
+-SOMETHING WRONG w/ removing the last node from the linked list!!!!
+	#removerear function ????
+
+-link customer and account together
 */
 
 #include <iostream>
@@ -63,11 +68,12 @@ void menu() {
 	cout << "*--------------------------------------------------------*\n";
 	cout << "|0. Exit                                                 |\n";
 	cout << "|1. Enter ALL Customer Information                       |\n";
-	cout << "|2. Read ALL Customer Information                        |\n";
+	cout << "|2. Display ALL Customer Information                     |\n";
 	cout << "|3. Edit a record                                        |\n";
 	cout << "|4. Add a customer                                       |\n";
-	cout << "|5. Print customer by last name                          |\n";
-	cout << "|6. Make a transaction                                   |\n";
+	cout << "|5. Remove a customer                                    |\n";
+	cout << "|6. Print customer by last name                          |\n";
+	cout << "|7. Make a transaction                                   |\n";
 	cout << "*--------------------------------------------------------*" << endl;
 }
 
@@ -81,7 +87,7 @@ int main(void) {
 	menu();	//output menu
 	cout << "Enter a choice: "; //prompt user to enter a choice
 	cin >> choice;
-	while (choice >= 0 && choice <= 6) { //while loop for menu based system
+	while (choice >= 0 && choice <= 7) { //while loop for menu based system
 		switch (choice) {
 		case 0:
 			return 0;
@@ -106,12 +112,15 @@ int main(void) {
 			}
 			custlist.writefile("customer.dat");
 			break;
-		case 2: //read all customer info
+		case 2: //display all customer info
 		{
 			customerlist reading;
 			reading.loadFile("customer.dat");
 			//custlist.printcustomer();
 			for (int i = 0; i < reading.getcount(); i++) {
+				cout << "-----------------------" << endl;
+				cout << "- Record #" << i + 1 << ": -" << endl;
+				cout << "-----------------------" << endl;
 				temp = reading.getat(i);
 				temp.printCustomerInfo();
 			}
@@ -132,8 +141,24 @@ int main(void) {
 			add.addcustomer("customer.dat");
 			break;
 		}
+		case 5://remove a customer from the list
+		{
+			customerlist print, remove;
+			print.loadFile("customer.dat");
+			//custlist.printcustomer();
+			for (int i = 0; i < print.getcount(); i++) {
+				cout << "-----------------------" << endl;
+				cout << "- Record #" << i + 1 << ": -" << endl;
+				cout << "-----------------------" << endl;
+				temp = print.getat(i);
+				temp.printCustomerInfo();
+			}
+			remove.removecustomer("customer.dat");
+
+			break;
+		}
 		//Ch8 challenge
-		case 5: //print customers in last name order
+		case 6: //print customers in last name order
 		{
 			pqname order;
 			customer one(28, "kevin", "durant");
@@ -149,7 +174,7 @@ int main(void) {
 			order.printcustomer();
 			break;
 		}
-		case 6: //PHASE 1: (will edit again...)
+		case 7: //PHASE 1: (will edit again...)
 		{
 			time_t currenttime=0; //temp value to hold time
 			currenttime = time(NULL);

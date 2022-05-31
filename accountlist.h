@@ -67,6 +67,19 @@ public:
 		this->addrear(acc);
 		this->writeFile(filename);
 	}
+	void removeAccount(string filename) {
+
+		int rnum = 0;
+		cout << "enter account to delete:";//prompt user to enter specific customer to delete
+		cin >> rnum;
+
+		this->loadFile(filename); //load file onto the list;
+		this->removeAt(rnum - 1); //remove specific record (*index=rnum-1)
+		this->writeFile(filename); //write the file to the filename PROBLEM HERE
+
+		//could show all accounts customer has w/ record# in the beginning 
+		//then ask user to enter record# to delete specific account
+	}
 
 };
 
