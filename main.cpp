@@ -20,7 +20,7 @@ UNDERSTANDING:
 		Remove accounts
 		Remove customers
 		Print customers by last name with accounts 
-		Process transactions sorted by time (epoch value, one large number)
+		Process transactions sorted by time (epoch value, one large number) !DONE!
 	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
 
 -customer HAS many accounts
@@ -44,6 +44,7 @@ GOALS TO ACHIEVE:
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
+-implement .dat files into main
 */
 
 #include <iostream>

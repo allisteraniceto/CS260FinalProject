@@ -1,5 +1,6 @@
 #include "datetime.h"
 #include <time.h> //used to get struct "time_t" to get month, day, year, hour, min, seconds
+#include <ctime>
 #include <iostream>
 #include <fstream>
 

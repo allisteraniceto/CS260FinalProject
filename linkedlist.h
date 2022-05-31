@@ -167,8 +167,30 @@ public:
 			}
 		}
 	}
-	void removeAt() {
+	void removeAt(int index) {
+		if (head == 0) {
+			return 0;
+		}
+		else {
+			if (index < 1) {
+				removefront();
+			}
+			else if (index >= count) {
+				removerear();
+			}
+			else {
+				node<T>* temp = head;
 
+				for (int i = 0; i < index - 1; i++)
+					temp = temp->getNext();
+
+				node<T>* todelete = temp->getNext();
+				temp->setNext(todelete->getNext());
+				todelete->getNext()->setPrev(temp);
+				delete todelete;
+				count--;
+			}
+		}
 	}
 	T getat(int index) {
 		if (head == 0)
