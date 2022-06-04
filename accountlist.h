@@ -1,16 +1,53 @@
 #pragma once
 #include "account.h"
 #include "linkedlist.h"
+#include "savings.h"
+#include "checking.h"
+#include "moneymarket.h"
+#include "certificatedeposit.h"
 #include <fstream>
+#include <vector>
 
-class accountlist : public linkedlist<account> {
+class accountlist : public linkedlist<account*> {
+private:
+	vector<int> accounttypes;
 public:
 	void writeFile(string filename) {
-		int count = this->getcount();
+		int count = this->count; //getting count from the stack (instead of the heap)
 		ofstream ofs(filename, ios::binary);
 		ofs.write((char*)(&count), sizeof(int));
 
-		node<account>* temp = head;
+		for (int i = 0; i < count; i++) {
+			ofs.write((char*)&accounttypes[i], sizeof(int));
+		}
+
+		account* acct = 0; 
+		node<account*>* temp = head;
+		for (int i = 0; i < count; i++)
+		{
+			acct = temp->getData();
+			switch (accounttypes[i])//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
+			{
+			case 0:
+				ofs.write((char*)acct, sizeof(savings));//104 bytes
+				break;
+			case 1:
+				ofs.write((char*)acct, sizeof(checking));//104 bytes
+				break;
+			case 2:
+				ofs.write((char*)acct, sizeof(certicatedeposit));//112 bytes
+				break;
+			case 3:
+				ofs.write((char*)acct, sizeof(moneymarket));//104 bytes
+				break;
+			default:
+				throw "error account type not found loading from file";
+				break;
+			}
+			temp = temp->getNext();
+		}
+
+		node<account*>* temp = head;
 		while (temp != 0)
 		{
 			//temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
@@ -21,51 +58,83 @@ public:
 	//function to read the file
 	void loadFile(string filename) {
 		int count = 0;
-		account temp;
+		int item = 0;
+		account *temp;
 		ifstream ifs(filename, ios::binary);
 
 		//ifs.seekg(0); // to make sure that the data is read from the starting position of the file
 
 		ifs.read((char*)(&count), sizeof(int));
-
 		for (int i = 0; i < count; i++) {
 			ifs.read((char*)(&temp), sizeof(account));
 			this->addrear(temp);
 		}
-		ifs.close();
-	}
-	void readFile(string filename)
-	{
-		int count = 0;
-		account temp;
-		ifstream ifs(filename, ios::binary);
-
-		ifs.read((char*)&count, sizeof(int));
 
 		for (int i = 0; i < count; i++) {
-			ifs.read((char*)(&temp), sizeof(account));
-			this->addrear(temp);
+			switch (accounttypes[i])//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
+			{
+			case 0:
+				temp = new savings();
+				ifs.read((char*)temp, sizeof(savings));
+				break;
+			case 1:
+				temp = new checking();
+				ifs.read((char*)temp, sizeof(checking));
+				break;
+			case 2:
+				temp = new certicatedeposit();
+				ifs.read((char*)temp, sizeof(certicatedeposit));
+				break;
+			case 3:
+				temp = new moneymarket();
+				ifs.read((char*)temp, sizeof(moneymarket));
+				break;
+			default:
+				throw "error account type not found loading from file";
+				break;
+			}
 		}
 		ifs.close();
 	}
-	void addAccount(string filename) {
-		//temp variables to put in account object parameters
-		long int accountid=0;
-		long double balance=0;
-		int accounttype=0;//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
-		datetime activedate;
+	//void readFile(string filename)
+	//{
+	//	int count = 0;
+	//	account temp;
+	//	ifstream ifs(filename, ios::binary);
 
-		cout << "Enter account ID: ";
-		cin >> accountid;
-		cout << "Enter Balance: ";
-		cin >> balance;
-		cout << "Enter Account Type (0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket): ";
-		cin >> accounttype;
+	//	ifs.read((char*)&count, sizeof(int));
 
-		account acc(accountid, balance, accounttype); //temp acccount object for storing
-		this->loadFile(filename);
-		this->addrear(acc);
-		this->writeFile(filename);
+	//	for (int i = 0; i < count; i++) {
+	//		ifs.read((char*)(&temp), sizeof(account));
+	//		this->addrear(temp);
+	//	}
+	//	ifs.close();
+	//}
+
+	//void addAccount(string filename) {
+	//	//temp variables to put in account object parameters
+	//	long int accountid=0;
+	//	long double balance=0;
+	//	int accounttype=0;//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
+	//	datetime activedate;
+
+	//	cout << "Enter account ID: ";
+	//	cin >> accountid;
+	//	cout << "Enter Balance: ";
+	//	cin >> balance;
+	//	cout << "Enter Account Type (0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket): ";
+	//	cin >> accounttype;
+
+	//	account acc(accountid, balance, accounttype); //temp acccount object for storing
+	//	this->loadFile(filename);
+	//	this->addrear(acc);
+	//	accounttypes.push_back(acc->gettype()) //THIS IS GOOD ALREADY, just need to edit other things
+	//	this->writeFile(filename);
+	//}
+
+	void addAccount(account *paccount) {
+		this->addrear(paccount);
+		accounttypes.push_back(paccount->gettype()); //adds newly made account in the back of the vector
 	}
 	void removeAccount(string filename) {
 
@@ -79,6 +148,16 @@ public:
 
 		//could show all accounts customer has w/ record# in the beginning 
 		//then ask user to enter record# to delete specific account
+	}
+	//THIS IS THE GOOD ONE
+	void removeAccount(account* paccount) {
+		node <account*>* temp = head;
+		for (int i=0; i<this->count;i++) {
+			if (paccount->getid() == temp->getData()->getid()) {
+				this->removeAt(i);
+			}
+			temp = temp->getNext();
+		}
 	}
 
 };

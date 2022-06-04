@@ -19,28 +19,24 @@ UNDERSTANDING:
 		Add customers !DONE!
 		Remove accounts (removeAccount func inside accountList) 
 		Remove customers (removeCustomer func inside customerList) !DONE!
-		Print customers by last name with accounts 
+		Print customers by last name with accounts !DONE!
 		Process transactions sorted by time (epoch value, one large number) !DONE!
 	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
 
 -customer HAS many accounts
 -account HAS 3 types of accounts 
 
+-when making a new account, an account object has a parameter for accountid (to link account w/ customer)
 
 GOALS TO ACHIEVE:
--finish transaction.h
-	#figure out and implement "epoch" time !DONE!
-
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
 
--revise linkedlist.h: !DONE!
-	#add removeAt
-
 -add:
 	#removeAccount to accountlist 
 	#removeCustomer to customerlist !DONE!
+	#deposit and withdrawal inside account.h
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
@@ -96,8 +92,9 @@ int main(void) {
 			for (int i = 0; i < custNum; i++) {
 				int tempID = 0;
 
-				string tempfirst;
-				string templast;
+				string tempfirst = NULL;
+				string templast = NULL;
+				int tempacc = 0;
 				cout << "Enter ID for record #" << i + 1 << ": ";
 				cin >> tempID;
 				cin.ignore();
@@ -105,7 +102,10 @@ int main(void) {
 				cin >> tempfirst;
 				cout << "Enter last name: ";
 				cin >> templast;
-				temp.setid(tempID);
+				cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
+				cin >> tempacc;
+				temp.setcustomerid(tempID);
+				temp.setaccount(tempacc);
 				temp.setfname(tempfirst);
 				temp.setlname(templast);
 				custlist.addrear(temp);
@@ -161,10 +161,10 @@ int main(void) {
 		case 6: //print customers in last name order
 		{
 			pqname order;
-			customer one(28, "kevin", "durant");
-			customer two(24, "kobe", "bryant");
-			customer three(30, "steph", "curry");
-			customer four(23, "lebron", "james");
+			customer one(28, 1, "kevin", "durant");
+			customer two(24, 0, "kobe", "bryant");
+			customer three(30, 2, "steph", "curry");
+			customer four(23, 0,"lebron", "james");
 
 			order.push(one);
 			order.push(two);

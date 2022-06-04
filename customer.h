@@ -8,7 +8,8 @@ using namespace std;
 class customer
 {
 private:
-	int id;
+	long int customerid;
+	int account;
 	char fname[NAME_LENGTH];
 	char lname[NAME_LENGTH];
 	int fnlength;
@@ -16,23 +17,28 @@ private:
 	
 public:
 	customer() {
-		id = 0;
+		customerid = 00000000;
+		account = 0; //default; 0-saving account
 		fname[NAME_LENGTH-1] = { 'x' }; //-1 because of \n character at the end
 		lname[NAME_LENGTH-1] = { 'x' };
 		fnlength = 0;
 		lnlength = 0;
 	}
-	customer(int id, string fname, string lname) {
-		this->id = id;
+	customer(long int customerid,int account, string fname, string lname) {
+		this->customerid = customerid;
+		this->account = account;
 		strcpy_s(this->fname, fname.c_str()); //copys parameter name into name member variable
 		strcpy_s(this->lname, lname.c_str());
 		this->fnlength = fname.length() + 1; //+1 becuase of the /0 at the end
 		this->lnlength = lname.length() + 1; //+1 becuase of the /0 at the end
 	}
 
-void setid(int id)
+void setcustomerid(long int id)
 {
-	this->id = id;
+	this->customerid = id;
+}
+void setaccount(int account) {
+	this->account = account;
 }
 //converts string into char*
 void setfname(string fname){
@@ -44,9 +50,12 @@ void setlname(string lname) {
 	strcpy_s(this->lname, lname.c_str());
 	this->lnlength = lname.length() + 1; //+1 becuase of the /0 at the end
 }
-int getid()
+long int getcustomerid()
 {
-	return id;
+	return customerid;
+}
+int getaccount() {
+	return account;
 }
 char* getfname() {
 	return fname;
@@ -59,10 +68,17 @@ int getlnlength() {
 }
 void printid()
 {
-	cout << id << endl;
+	cout << customerid << endl;
 }
 void printCustomerInfo() {
-	cout << "ID: " << id << endl;
+	cout << "ID: " << customerid << endl;
+	cout << "Account: ";
+	if (account == 0) //if account = 0, it is a savings account
+		cout << "Savings" << endl;
+	else if (account == 1)//if account = 1, it is a checking account
+		cout << "Checking" << endl;
+	else if (account == 2)//if account = 2, it is a CD account
+		cout << "CD" << endl;
 	cout << "Name: ";
 	//print first name
 	for (int i = 0; i < fnlength;i++) {

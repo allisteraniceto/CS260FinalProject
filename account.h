@@ -10,6 +10,7 @@ class account
 {
 private:
 	long int accountid;
+	long int customerid;
 	long double balance;
 	int accounttype;//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
 	datetime activedate;
@@ -20,6 +21,10 @@ public:
 	//virtual long double CalculatePenalty(long double balance) = 0;
 	//virtual void save(ofstream &out) = 0;
 	//virtual void load(ifstream &in) = 0;
+
+	////every account (when the time comes), will need to withdraw or deposit
+	//virtual void withrawal() = 0;
+	//virtual void deposit() = 0;
 
 	const double INT_CHECKING = 0.02;
 	const double INT_SAVINGS = 0.10;
