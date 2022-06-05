@@ -14,6 +14,7 @@ UNDERSTANDING:
 
 -PHASE 2:
 	#implement linked list so data (e.g. customers, accounts, transactions) are structured and stored as a linked list !DONE!
+
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
@@ -32,7 +33,7 @@ GOALS TO ACHIEVE:
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
-
+  
 -add:
 	#removeAccount to accountlist  !DONE!
 	#removeCustomer to customerlist !DONE!
