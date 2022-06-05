@@ -62,10 +62,10 @@ public:
 		//inoutfile.seekg (0, ios::beg);
 		inoutfile.seekg(4 + sizeof(customer) * (rnum - 1), ios::beg);//add 4 bytes for header multy sizeof customer by rnum;
 		inoutfile.read((char*)(&temp), sizeof(customer));
-		cout << "Record Number:" << rnum << " " << "Customer id of" << temp.getid() << endl;
+		cout << "Record Number:" << rnum << " " << "Customer id of" << temp.getcustomerid() << endl;
 		cout << "Enter new ID: ";
 		cin >> id;
-		temp.setid(id);
+		temp.setcustomerid(id);
 		//1042 +4
 		inoutfile.seekp(4 + sizeof(customer) * (rnum - 1), ios::beg);//add 4 bytes for header multy sizeof customer by rnum;
 		inoutfile.write((char*)(&temp), sizeof(customer));
@@ -74,7 +74,8 @@ public:
 
 	//add a customer
 	void addcustomer(string filename) {
-		int id = 0; 
+		long int id = 0; 
+		int account = 0;
 		char* fname = nullptr; 
 		fname = new char[NAME_LENGTH]; //allocate memory for char array
 
@@ -89,8 +90,10 @@ public:
 		cin.getline(lname, NAME_LENGTH);
 		cout << "Enter new ID: " << endl; //prompt user to enter id for new record
 		cin >> id;
+		cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
+		cin >> account;
 
-		customer temp(id, fname, lname); //set id and person's name by using overloaded constructor
+		customer temp(id, account, fname, lname); //set id and person's name by using overloaded constructor
 
 		this->loadFile(filename); //load file onto the list
 		this->addrear(temp); //add new record onto the list

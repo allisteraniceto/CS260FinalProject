@@ -18,34 +18,27 @@ UNDERSTANDING:
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
-		Remove accounts (removeAccount func inside accountList) 
+		Remove accounts (removeAccount func inside accountList) !DONE!
 		Remove customers (removeCustomer func inside customerList) !DONE!
-		Print customers by last name with accounts 
+		Print customers by last name with accounts !DONE!
 		Process transactions sorted by time (epoch value, one large number) !DONE!
 	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
 
 -customer HAS many accounts
 -account HAS 3 types of accounts 
 
+-when making a new account, an account object has a parameter for accountid (to link account w/ customer)
 
 GOALS TO ACHIEVE:
--finish transaction.h
-	#figure out and implement "epoch" time !DONE!
-
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
 	#revise: editRecord()
-
--revise linkedlist.h: !DONE!
-	#add removeAt
-=======
--add customer, then customer list-> !DONE!
--add account, then account list (convert to linked list)-> !DONE!
--make transaction, then transaction list (convert to linked list) !DONE!
-
+  
 -add:
-	#removeAccount to accountlist 
+	#removeAccount to accountlist  !DONE!
 	#removeCustomer to customerlist !DONE!
+	#deposit and withdrawal inside account.h
+	#add/link account to customer- so that when customer is printed, account associated with customer will print as well
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
@@ -63,6 +56,7 @@ GOALS TO ACHIEVE:
 #include "pqname.h"
 #include "transaction.h"
 #include "transactionlist.h"
+#include "accountlist.h"
 #include <ctime> //time since Jan 1, 1970
 using namespace std;
 
@@ -103,6 +97,7 @@ int main(void) {
 
 				string tempfirst;
 				string templast;
+				int tempacc = 0;
 				cout << "Enter ID for record #" << i + 1 << ": ";
 				cin >> tempID;
 				cin.ignore();
@@ -110,7 +105,10 @@ int main(void) {
 				cin >> tempfirst;
 				cout << "Enter last name: ";
 				cin >> templast;
-				temp.setid(tempID);
+				cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
+				cin >> tempacc;
+				temp.setcustomerid(tempID);
+				temp.setaccount(tempacc);
 				temp.setfname(tempfirst);
 				temp.setlname(templast);
 				custlist.addrear(temp);
@@ -166,10 +164,21 @@ int main(void) {
 		case 6: //print customers in last name order
 		{
 			pqname order;
-			customer one(28, "kevin", "durant");
-			customer two(24, "kobe", "bryant");
-			customer three(30, "steph", "curry");
-			customer four(23, "lebron", "james");
+			customer one(28, 1, "kevin", "durant");
+			customer two(24, 0, "kobe", "bryant");
+			customer three(30, 2, "steph", "curry");
+			customer four(23, 0,"lebron", "james");
+
+			checking ch(1234, 500000, 1);
+			savings sav(4321, 25.00, 0);
+			certicatedeposit cd(3456, 20000, 2, 2);
+			moneymarket mm(2938, 10000, 3);
+			accountlist alist;
+
+			alist.addAccount(&ch);
+			alist.addAccount(&sav);
+			alist.addAccount(&cd);
+			alist.addAccount(&mm);
 
 			order.push(one);
 			order.push(two);

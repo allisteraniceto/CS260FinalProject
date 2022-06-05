@@ -142,12 +142,15 @@
     <ClInclude Include="account.h" />
     <ClInclude Include="accountlist.h" />
     <ClInclude Include="certificatedeposit.h" />
+    <ClInclude Include="checking.h" />
     <ClInclude Include="customer.h" />
     <ClInclude Include="customerlist.h" />
     <ClInclude Include="datetime.h" />
     <ClInclude Include="linkedlist.h" />
+    <ClInclude Include="moneymarket.h" />
     <ClInclude Include="pqtime.h" />
     <ClInclude Include="pqname.h" />
+    <ClInclude Include="savings.h" />
     <ClInclude Include="transaction.h" />
     <ClInclude Include="transactionlist.h" />
   </ItemGroup>
