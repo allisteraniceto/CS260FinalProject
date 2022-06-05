@@ -44,12 +44,13 @@ public:
 		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
 	}
 
-	account(int accountid,long double balance,int accounttype)
+	account(int accountid, int customerid, long double balance,int accounttype)
 	{
 		time_t ti = time(0);
 		time_t* t = &ti;
 		struct tm * now = localtime(t);
 		this->accountid = accountid;
+		this->customerid = customerid;
 		this->balance = balance;
 		this->accounttype = accounttype;
 		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);

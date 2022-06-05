@@ -136,19 +136,19 @@ public:
 		this->addrear(paccount);
 		accounttypes.push_back(paccount->gettype()); //adds newly made account in the back of the vector
 	}
-	void removeAccount(string filename) {
+	//void removeAccount(string filename) {
 
-		int rnum = 0;
-		cout << "enter account to delete:";//prompt user to enter specific customer to delete
-		cin >> rnum;
+	//	int rnum = 0;
+	//	cout << "enter account to delete:";//prompt user to enter specific customer to delete
+	//	cin >> rnum;
 
-		this->loadFile(filename); //load file onto the list;
-		this->removeAt(rnum - 1); //remove specific record (*index=rnum-1)
-		this->writeFile(filename); //write the file to the filename PROBLEM HERE
+	//	this->loadFile(filename); //load file onto the list;
+	//	this->removeAt(rnum - 1); //remove specific record (*index=rnum-1)
+	//	this->writeFile(filename); //write the file to the filename PROBLEM HERE
 
-		//could show all accounts customer has w/ record# in the beginning 
-		//then ask user to enter record# to delete specific account
-	}
+	//	//could show all accounts customer has w/ record# in the beginning 
+	//	//then ask user to enter record# to delete specific account
+	//}
 	//THIS IS THE GOOD ONE
 	void removeAccount(account* paccount) {
 		node <account*>* temp = head;

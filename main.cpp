@@ -17,7 +17,7 @@ UNDERSTANDING:
 	#add these:
 		Add accounts !DONE!
 		Add customers !DONE!
-		Remove accounts (removeAccount func inside accountList) 
+		Remove accounts (removeAccount func inside accountList) !DONE!
 		Remove customers (removeCustomer func inside customerList) !DONE!
 		Print customers by last name with accounts !DONE!
 		Process transactions sorted by time (epoch value, one large number) !DONE!
@@ -34,9 +34,10 @@ GOALS TO ACHIEVE:
 	#revise: editRecord()
 
 -add:
-	#removeAccount to accountlist 
+	#removeAccount to accountlist  !DONE!
 	#removeCustomer to customerlist !DONE!
 	#deposit and withdrawal inside account.h
+	#add/link account to customer- so that when customer is printed, account associated with customer will print as well
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
@@ -54,6 +55,7 @@ GOALS TO ACHIEVE:
 #include "pqname.h"
 #include "transaction.h"
 #include "transactionlist.h"
+#include "accountlist.h"
 #include <ctime> //time since Jan 1, 1970
 using namespace std;
 
@@ -92,8 +94,8 @@ int main(void) {
 			for (int i = 0; i < custNum; i++) {
 				int tempID = 0;
 
-				string tempfirst = NULL;
-				string templast = NULL;
+				string tempfirst;
+				string templast;
 				int tempacc = 0;
 				cout << "Enter ID for record #" << i + 1 << ": ";
 				cin >> tempID;
@@ -165,6 +167,17 @@ int main(void) {
 			customer two(24, 0, "kobe", "bryant");
 			customer three(30, 2, "steph", "curry");
 			customer four(23, 0,"lebron", "james");
+
+			checking ch(1234, 500000, 1);
+			savings sav(4321, 25.00, 0);
+			certicatedeposit cd(3456, 20000, 2, 2);
+			moneymarket mm(2938, 10000, 3);
+			accountlist alist;
+
+			alist.addAccount(&ch);
+			alist.addAccount(&sav);
+			alist.addAccount(&cd);
+			alist.addAccount(&mm);
 
 			order.push(one);
 			order.push(two);
