@@ -34,8 +34,7 @@ GOALS TO ACHIEVE:
 	#revise: editRecord()
 
 -add:
-	#removeAccount to accountlist  !DONE!
-	#removeCustomer to customerlist !DONE!
+	#PRINT CUSTOMERS W/ ACCOUNT (somehow link accounts and customers inside customer.h when printing) !DONE!
 	#deposit and withdrawal inside account.h
 	#add/link account to customer- so that when customer is printed, account associated with customer will print as well
 
@@ -46,6 +45,8 @@ GOALS TO ACHIEVE:
 -SOMETHING WRONG w/ removing the last node from the linked list!!!!
 	#removerear function ????
 
+-SOMETHING WRONG!!
+	#when displaying all customer info, all counts are shown from .dat file
 -link customer and account together
 */
 
@@ -70,8 +71,10 @@ void menu() {
 	cout << "|3. Edit a record                                        |\n";
 	cout << "|4. Add a customer                                       |\n";
 	cout << "|5. Remove a customer                                    |\n";
-	cout << "|6. Print customer by last name                          |\n";
-	cout << "|7. Make a transaction                                   |\n";
+	cout << "|6. Make a transaction                                   |\n";
+	cout << "|7. Print transactions                                   |\n";
+	cout << "|8. Add customer w/ accounts and print by last name      |\n";
+	cout << "|9. Print all accounts                                   |\n";
 	cout << "*--------------------------------------------------------*" << endl;
 }
 
@@ -79,13 +82,14 @@ int main(void) {
 	int choice=0;
 	int custNum=0;
 	customerlist custlist; //customer list to store
+	accountlist acclist; //account list to store
 	transactionlist translist; //transaction list to store
 	customer temp; //temp customer object to store customer info
 	
 	menu();	//output menu
 	cout << "Enter a choice: "; //prompt user to enter a choice
 	cin >> choice;
-	while (choice >= 0 && choice <= 7) { //while loop for menu based system
+	while (choice >= 0 && choice <= 9) { //while loop for menu based system
 		switch (choice) {
 		case 0:
 			return 0;
@@ -107,7 +111,7 @@ int main(void) {
 				cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
 				cin >> tempacc;
 				temp.setcustomerid(tempID);
-				temp.setaccount(tempacc);
+				//temp.setaccount(tempacc);
 				temp.setfname(tempfirst);
 				temp.setlname(templast);
 				custlist.addrear(temp);
@@ -159,25 +163,64 @@ int main(void) {
 
 			break;
 		}
-		//Ch8 challenge
-		case 6: //print customers in last name order
+		case 6: //PHASE 1: (will edit again...)
 		{
-			pqname order;
-			customer one(28, 1, "kevin", "durant");
-			customer two(24, 0, "kobe", "bryant");
-			customer three(30, 2, "steph", "curry");
-			customer four(23, 0,"lebron", "james");
+			transactionlist translist;
+			time_t currenttime = 0; //temp value to hold time
+			currenttime = time(NULL);
+			transaction trans1(currenttime, 39203, 1);
+			system("pause"); //little puase to have different time
+			currenttime = time(NULL);
+			transaction trans2(currenttime, 23902, 2);
+			system("pause");
+			currenttime = time(NULL);
+			transaction trans3(currenttime, 339203, 3);
 
-			checking ch(1234, 500000, 1);
-			savings sav(4321, 25.00, 0);
-			certicatedeposit cd(3456, 20000, 2, 2);
-			moneymarket mm(2938, 10000, 3);
+			translist.push(trans1);
+			translist.push(trans2);
+			translist.push(trans3);
+
+			translist.sort();
+
+			translist.writeFile("transactions.dat");
+
+			//translist.printcustomer();
+			break;
+		}
+		//PHASE 2
+		case 7:
+		{
+			transactionlist load;
+			load.readFile("transactions.dat");
+			load.printcustomer();
+			break;
+		}
+		//1st - add customers w/ account
+		case 8: //print customers w/ customer info in last name order
+		{
+			pqname order; //priorty queue for last names
+			
+			//make types of accounts w/ customerid attached
+
+			checking ch(1234, 28, 500000, 1); //checking(int accountid, int customerid, long double balance, int accounttype)
+			savings sav(4321, 24, 25.00, 0);
+			certicatedeposit cd(3456, 24, 20000, 2, 3);
+			moneymarket mm(2938, 24, 10000, 3);
 			accountlist alist;
+
+			//add accounts to the account list
 
 			alist.addAccount(&ch);
 			alist.addAccount(&sav);
 			alist.addAccount(&cd);
 			alist.addAccount(&mm);
+
+			alist.writeFile("accounts.dat");
+
+			customer one(28, "kevin", "durant", &alist); //customer(long int customerid, string fname, string lname)
+			customer two(24, "kobe", "bryant", &alist);
+			customer three(30, "steph", "curry", &alist);
+			customer four(23, "lebron", "james", &alist);
 
 			order.push(one);
 			order.push(two);
@@ -187,25 +230,13 @@ int main(void) {
 			order.printcustomer();
 			break;
 		}
-		case 7: //PHASE 1: (will edit again...)
+		//2nd - load customers and print()
+		case 9: //print customers w/ customer info in last name order
 		{
-			time_t currenttime=0; //temp value to hold time
-			currenttime = time(NULL);
-			transaction trans1(currenttime, 39203,1);
-			system("pause"); //little puase to have different time
-			currenttime = time(NULL);
-			transaction trans2(currenttime, 23902, 2);
-			system("pause");
-			currenttime = time(NULL);
-			transaction trans3(currenttime, 339203, 3);
-			
-			translist.push(trans1);
-			translist.push(trans2);
-			translist.push(trans3);
-
-			translist.sort();
-
-			translist.printcustomer();
+			accountlist load;
+			cout << "accounts: " << endl;
+			load.loadFile("accounts.dat");
+			load.printAllAccounts();
 			break;
 		}
 		}

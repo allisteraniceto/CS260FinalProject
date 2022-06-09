@@ -6,7 +6,7 @@ public:
 	savings():account()
 	{}
 
-	savings(int accountid, long double balance, int accounttype): account(accountid,balance,accounttype)
+	savings(int accountid, int customerid, long double balance, int accounttype): account(accountid,customerid,balance,accounttype)
 	{}
 
 	long double CalculateInterest(long double balance)

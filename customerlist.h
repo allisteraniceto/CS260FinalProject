@@ -90,10 +90,10 @@ public:
 		cin.getline(lname, NAME_LENGTH);
 		cout << "Enter new ID: " << endl; //prompt user to enter id for new record
 		cin >> id;
-		cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
-		cin >> account;
+		/*cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
+		cin >> account;*/
 
-		customer temp(id, account, fname, lname); //set id and person's name by using overloaded constructor
+		customer temp(id, fname, lname); //set id and person's name by using overloaded constructor
 
 		this->loadFile(filename); //load file onto the list
 		this->addrear(temp); //add new record onto the list
@@ -115,7 +115,7 @@ public:
 		//then ask user to enter record# to delete specific customer
 	}
 
-	//print customer objects
+	//print ALL customer objects
 	void printcustomer() {
 		node<customer>* temp = head;
 		customer ctemp;
@@ -127,6 +127,7 @@ public:
 			temp = temp->getNext(); //temp ptr points to next ptr which points to address of the next node value
 		}
 	}
+
 	//sort function (for later)
 	void sort() { 
 

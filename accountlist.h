@@ -47,52 +47,54 @@ public:
 			temp = temp->getNext();
 		}
 
-		node<account*>* temp = head;
-		while (temp != 0)
-		{
-			//temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
-			temp = temp->getNext();
-		}
+		//node<account*>* temp = head;
+		//while (temp != 0)
+		//{
+		//	//temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
+		//	temp = temp->getNext();
+		//}
 		ofs.close();
 	}
 	//function to read the file
 	void loadFile(string filename) {
 		int count = 0;
-		int item = 0;
-		account *temp;
+		int itemp = 0;
+		account *atemp;
 		ifstream ifs(filename, ios::binary);
 
 		//ifs.seekg(0); // to make sure that the data is read from the starting position of the file
 
-		ifs.read((char*)(&count), sizeof(int));
+		ifs.read((char*)(&count), sizeof(int)); //read amount of accounts in file
 		for (int i = 0; i < count; i++) {
-			ifs.read((char*)(&temp), sizeof(account));
-			this->addrear(temp);
+			ifs.read((char*)(&atemp), sizeof(int));
+			accounttypes.push_back(itemp);
+			//this->addrear(atemp); //SOMETHING WRONG HERE
 		}
-
+		node <account*>* ttemp = head;
 		for (int i = 0; i < count; i++) {
 			switch (accounttypes[i])//0 - Savings, 1 - Checking, 2 - CD, 3 - MoneyMarket
 			{
 			case 0:
-				temp = new savings();
-				ifs.read((char*)temp, sizeof(savings));
+				atemp = new savings();
+				ifs.read((char*)atemp, sizeof(savings));
 				break;
 			case 1:
-				temp = new checking();
-				ifs.read((char*)temp, sizeof(checking));
+				atemp = new checking();
+				ifs.read((char*)atemp, sizeof(checking));
 				break;
 			case 2:
-				temp = new certicatedeposit();
-				ifs.read((char*)temp, sizeof(certicatedeposit));
+				atemp = new certicatedeposit();
+				ifs.read((char*)atemp, sizeof(certicatedeposit));
 				break;
 			case 3:
-				temp = new moneymarket();
-				ifs.read((char*)temp, sizeof(moneymarket));
+				atemp = new moneymarket();
+				ifs.read((char*)atemp, sizeof(moneymarket));
 				break;
 			default:
 				throw "error account type not found loading from file";
 				break;
 			}
+			addAccount(atemp);
 		}
 		ifs.close();
 	}
@@ -153,12 +155,33 @@ public:
 	void removeAccount(account* paccount) {
 		node <account*>* temp = head;
 		for (int i=0; i<this->count;i++) {
-			if (paccount->getid() == temp->getData()->getid()) {
+			if (paccount->getaccountid() == temp->getData()->getaccountid()) {
 				this->removeAt(i);
 			}
 			temp = temp->getNext();
 		}
 	}
+
+	//prints ALL accounts
+	void printAllAccounts() {
+		node<account*>* temp = head;
+		while (temp != 0) {
+			cout << temp->getData()->getaccountid() << endl;
+			temp = temp->getNext();
+		}
+	}
+	
+	//print accounts of specific customer
+	void printCustomerAccounts(int id) {
+		node<account*>* temp = head;
+		for (int i = 0; i < this->count; i++) {
+			if (id == temp->getData()->getcustomerid()) {
+				cout << temp->getData()->getaccountid() << endl;
+			}
+			temp = temp->getNext();
+		}
+	}
+
 
 };
 

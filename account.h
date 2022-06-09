@@ -37,23 +37,38 @@ public:
 	{
 		time_t ti = time(0);
 		time_t* t = &ti;
-		struct tm* now = localtime(t); //localtime() function need a pointer as a parameter
+		struct tm now;
+		localtime_s(&now, &ti); //localtime() function need a pointer as a parameter
 		accountid = 0;
 		balance = 0.00;
 		accounttype = 0;
-		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
+		activedate.set(now.tm_mon, now.tm_mday, now.tm_year, now.tm_hour, now.tm_min, now.tm_sec);
 	}
 
-	account(int accountid, int customerid, long double balance,int accounttype)
+	////original
+	//account(int accountid, int customerid, long double balance,int accounttype)
+	//{
+	//	time_t ti = time(0);
+	//	time_t* t = &ti;
+	//	struct tm * now = localtime(t);
+	//	this->accountid = accountid;
+	//	this->customerid = customerid;
+	//	this->balance = balance;
+	//	this->accounttype = accounttype;
+	//	activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
+	//}
+
+	account(int accountid, int customerid, long double balance, int accounttype)
 	{
 		time_t ti = time(0);
 		time_t* t = &ti;
-		struct tm * now = localtime(t);
+		struct tm now;
+		localtime_s(&now, &ti);
 		this->accountid = accountid;
 		this->customerid = customerid;
 		this->balance = balance;
 		this->accounttype = accounttype;
-		activedate.set(now->tm_mon, now->tm_mday, now->tm_year, now->tm_hour, now->tm_min, now->tm_sec);
+		activedate.set(now.tm_mon, now.tm_mday, now.tm_year, now.tm_hour, now.tm_min, now.tm_sec);
 	}
 
 	int gettype()
@@ -61,9 +76,13 @@ public:
 		return accounttype;
 	}
 
-	int getid()
+	int getaccountid()
 	{
 		return accountid;
+	}
+
+	int getcustomerid() {
+		return customerid;
 	}
 
 	void Debit(long double amount)
