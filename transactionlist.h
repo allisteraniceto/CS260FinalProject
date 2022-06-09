@@ -10,7 +10,7 @@ GOALS:
 //linked list of transactions
 class transactionlist : public pqtime {
 public:
-	void writeFile(string filename){
+	/*void writeFile(string filename){
 		int count = this->getcount();
 		ofstream ofs(filename, ios::binary);
 		ofs.write((char*)(&count), sizeof(int));
@@ -18,7 +18,24 @@ public:
 		node<transaction>* temp = head;
 		while (temp != 0)
 		{
-			//temp->getData().print();//ofs.write((char*)(&temp), sizeof(customer));
+			ofs.write((char*)(&temp), sizeof(transaction));
+			temp = temp->getNext();
+		}
+		ofs.close();
+	}*/
+	void writeFile(string filename) {
+
+		int count = this->getcount(); //access count from parent class
+		ofstream ofs(filename, ios::binary); //create output file object
+		ofs.write((char*)(&count), sizeof(int)); //writes count to file
+
+		node<transaction>* temp = head; //pointer to first customer object
+		transaction ctemp; //temporary customer to write
+
+		//traverse the list and write to file
+		while (temp != 0) {
+			ctemp = temp->getData();
+			ofs.write((char*)(&ctemp), sizeof(transaction)); 
 			temp = temp->getNext();
 		}
 		ofs.close();
