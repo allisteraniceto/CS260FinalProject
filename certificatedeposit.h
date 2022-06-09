@@ -11,7 +11,7 @@ public:
 		duration = 0;
 	}
 
-	certicatedeposit(int accountid, long double balance, int accounttype,int duration) : account(accountid, balance, accounttype)
+	certicatedeposit(int accountid, int customerid, long double balance, int accounttype, int duration) : account(accountid, customerid, balance, accounttype)
 	{
 		this->duration = duration;
 	}
