@@ -164,10 +164,13 @@ public:
 
 	//prints ALL accounts
 	void printAllAccounts() {
+		int i = 0;
 		node<account*>* temp = head;
 		while (temp != 0) {
+			cout << "record #" << i << endl;
 			cout << temp->getData()->getaccountid() << endl;
 			temp = temp->getNext();
+			i++;
 		}
 	}
 	

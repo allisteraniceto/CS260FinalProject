@@ -1,7 +1,7 @@
 /*
 Programmer: Allister Aniceto
 Purpose: CS260 Final Project
-Date Modified: 5/24/22
+Date Modified: 6/9/22
 Compiler: VS C++ 2019
 */
 
@@ -21,7 +21,7 @@ UNDERSTANDING:
 		Remove customers (removeCustomer func inside customerList) !DONE!
 		Print customers by last name with accounts !DONE!
 		Process transactions sorted by time (epoch value, one large number) !DONE!
-	#customerlist, accountlist, and transactionlist.h all have seperate .bin files
+	#customerlist, accountlist, and transactionlist.h all have seperate .bin files !DONE!
 
 -customer HAS many accounts
 -account HAS 3 types of accounts 
@@ -31,23 +31,23 @@ UNDERSTANDING:
 GOALS TO ACHIEVE:
 -revise transactionlist.h
 	#load and save transactions (use load and save from customerlist.h) !DONE!
-	#revise: editRecord()
 
 -add:
 	#PRINT CUSTOMERS W/ ACCOUNT (somehow link accounts and customers inside customer.h when printing) !DONE!
 	#deposit and withdrawal inside account.h
-	#add/link account to customer- so that when customer is printed, account associated with customer will print as well
+	#add/link account to customer- so that when customer is printed, account associated with customer will print as well !DONE!
 
 -fix calculatePenalty() in certificate deposit
 -delete .dat file before program ends
 -implement .dat files into main
 
 -SOMETHING WRONG w/ removing the last node from the linked list!!!!
-	#removerear function ????
+	#removerear function ???? x
 
--SOMETHING WRONG!!
-	#when displaying all customer info, all counts are shown from .dat file
--link customer and account together
+-SOMETHING WRONG!! 
+	#when displaying all customer info, all counts are shown from .dat file FIXED
+
+-link customer and account together !DONE!
 */
 
 #include <iostream>
@@ -108,8 +108,6 @@ int main(void) {
 				cin >> tempfirst;
 				cout << "Enter last name: ";
 				cin >> templast;
-				cout << "Enter type of account (0-Savings, 1-Checking, 2-CD, 3-Money Market): ";
-				cin >> tempacc;
 				temp.setcustomerid(tempID);
 				//temp.setaccount(tempacc);
 				temp.setfname(tempfirst);
@@ -128,7 +126,7 @@ int main(void) {
 				cout << "- Record #" << i + 1 << ": -" << endl;
 				cout << "-----------------------" << endl;
 				temp = reading.getat(i);
-				temp.printCustomerInfo();
+				temp.printCustomerInfo2();
 			}
 			//debug:
 			//cout << "reading count: " << reading.getcount() << endl;
@@ -157,7 +155,7 @@ int main(void) {
 				cout << "- Record #" << i + 1 << ": -" << endl;
 				cout << "-----------------------" << endl;
 				temp = print.getat(i);
-				temp.printCustomerInfo();
+				temp.printCustomerInfo2();
 			}
 			remove.removecustomer("customer.dat");
 
@@ -204,8 +202,9 @@ int main(void) {
 
 			checking ch(1234, 28, 500000, 1); //checking(int accountid, int customerid, long double balance, int accounttype)
 			savings sav(4321, 24, 25.00, 0);
-			certicatedeposit cd(3456, 24, 20000, 2, 3);
+			certicatedeposit cd(3456, 24, 20000, 2, 3); //certicatedeposit(int accountid, int customerid, long double balance, int accounttype, int duration)
 			moneymarket mm(2938, 24, 10000, 3);
+			certicatedeposit cd2(1, 1, 500, 2, 3);
 			accountlist alist;
 
 			//add accounts to the account list
@@ -214,6 +213,9 @@ int main(void) {
 			alist.addAccount(&sav);
 			alist.addAccount(&cd);
 			alist.addAccount(&mm);
+
+			//remove accounts example
+			alist.removeAccount(&cd2);
 
 			alist.writeFile("accounts.dat");
 
@@ -239,6 +241,17 @@ int main(void) {
 			load.printAllAccounts();
 			break;
 		}
+		//case 10: //remove account
+		//{
+		//	int record = 0;
+		//	accountlist remove;
+		//	cout << "accounts: " << endl;
+		//	remove.loadFile("accounts.dat");
+		//	remove.printAllAccounts();
+		//	cout << "Which account would you like to delete? "; 
+		//	cin >> record;
+		//	remove.removeAccount(&remove);
+		//}
 		}
 		menu();
 		cout << "Enter a choice: ";

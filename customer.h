@@ -106,6 +106,27 @@ void printCustomerInfo() {
 	accptr->printCustomerAccounts(customerid);
 	cout << "*******************" << endl;
 }
+void printCustomerInfo2() {
+	cout << "ID: " << customerid << endl;
+	//if (account == 0) //if account = 0, it is a savings account
+	//	cout << "Savings" << endl;
+	//else if (account == 1)//if account = 1, it is a checking account
+	//	cout << "Checking" << endl;
+	//else if (account == 2)//if account = 2, it is a CD account
+	//	cout << "CD" << endl;
+
+	cout << "Name: ";
+	//print first name
+	for (int i = 0; i < fnlength; i++) {
+		cout << fname[i];
+	}
+	cout << " ";
+	//prints last name
+	for (int i = 0; i < lnlength; i++) {
+		cout << lname[i];
+	}
+	cout << endl;
+}
 int numCustPrompt() {
 	int count;
 	cout << "How many customers would you like to enter? ";
